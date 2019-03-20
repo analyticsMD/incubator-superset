@@ -9,6 +9,7 @@ export default {
         ['series'],
         ['metric'],
         ['adhoc_filters'],
+        ['params'],
         ['row_limit', null],
       ],
     },

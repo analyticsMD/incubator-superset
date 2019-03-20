@@ -9,6 +9,7 @@ export default {
         ['metrics'],
         ['adhoc_filters'],
         ['groupby'],
+        ['params'],
         ['row_limit'],
       ],
     },

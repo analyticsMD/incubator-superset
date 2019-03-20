@@ -22,6 +22,7 @@ export default {
         ['spatial', null],
         ['row_limit', 'filter_nulls'],
         ['adhoc_filters'],
+        ['params'],
       ],
     },
     {

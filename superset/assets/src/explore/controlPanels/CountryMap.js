@@ -9,6 +9,7 @@ export default {
         ['entity'],
         ['metric'],
         ['adhoc_filters'],
+        ['params'],
       ],
     },
     {

@@ -11,6 +11,7 @@ export default {
         ['spatial', 'size'],
         ['row_limit', 'filter_nulls'],
         ['adhoc_filters'],
+        ['params'],
       ],
     },
     {
