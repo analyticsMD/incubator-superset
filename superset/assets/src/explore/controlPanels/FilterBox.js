@@ -9,6 +9,7 @@ export default {
         ['groupby'],
         ['metric'],
         ['adhoc_filters'],
+        ['params'],
         ['date_filter', 'instant_filtering'],
         ['show_sqla_time_granularity', 'show_sqla_time_column'],
         ['show_druid_time_granularity', 'show_druid_time_origin'],

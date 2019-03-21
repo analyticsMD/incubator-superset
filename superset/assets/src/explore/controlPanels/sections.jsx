@@ -62,6 +62,7 @@ export const NVD3TimeSeries = [
       ['metrics'],
       ['adhoc_filters'],
       ['groupby'],
+      ['params'],
       ['limit', 'timeseries_limit_metric'],
       ['order_desc', 'contribution'],
       ['row_limit', null],

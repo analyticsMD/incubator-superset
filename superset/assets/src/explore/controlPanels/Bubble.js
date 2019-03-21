@@ -14,6 +14,7 @@ export default {
         ['size'],
         ['max_bubble_size'],
         ['limit', null],
+        ['params'],
       ],
     },
     {

@@ -43,6 +43,7 @@ export default {
       expanded: true,
       controlSetRows: [
         ['adhoc_filters'],
+        ['params'],
       ],
     },
     annotations,

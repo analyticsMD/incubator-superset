@@ -9,6 +9,7 @@ export default {
       controlSetRows: [
         ['groupby'],
         ['metrics'],
+        ['params'],
         ['percent_metrics'],
         ['timeseries_limit_metric', 'row_limit'],
         ['include_time', 'order_desc'],
