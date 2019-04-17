@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 import os
+from ssm import ssm_password_lookup
 
 
 def get_env_variable(var_name, default=None):
@@ -70,3 +71,5 @@ CACHE_CONFIG = {
 from werkzeug.contrib.cache import RedisCache
 RESULTS_BACKEND = RedisCache(
     host=REDIS_HOST, port=REDIS_PORT, key_prefix='superset_results')
+
+SQLALCHEMY_CUSTOM_PASSWORD_STORE = ssm_password_lookup
