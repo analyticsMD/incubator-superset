@@ -52,6 +52,7 @@ WORKDIR /home/superset
 COPY requirements.txt .
 COPY requirements-dev.txt .
 
+# TODO: install qventus-conf. See instructions at https://github.com/analyticsMD/qventus-conf
 RUN pip install --upgrade setuptools pip \
     && pip install -r requirements.txt -r requirements-dev.txt \
     && rm -rf /root/.cache/pip
