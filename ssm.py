@@ -1,12 +1,11 @@
-from qventus_conf import fetch_secrets
+import boto3
 
-# TODO: modify function to take in sqla.engine.url. See https://superset.incubator.apache.org/installation.html#external-password-store-for-sqlalchemy-connections
+
+def getPasswords():
+  ssm = boto3.client('ssm')
+  passwrd = ssm.get_parameter(Name='/prod/nyp/snowflake-db/stack-user-pasword', WithDecryption=True)
+  nyp_superset = passwrd['Parameter']['Value']
+  return nyp_superset
 
 def ssm_password_lookup(url):
-  environment = 'prod'
-  # TODO: generate stack and secret from sqla.engine.url
-  stack = 'stanford'
-  secret = '/amd-db/superset/password'
-  secrets = [secret, ]
-  fetch_secrets(environment, stack, secrets)
-  return 'secret'
+  return getPasswords()

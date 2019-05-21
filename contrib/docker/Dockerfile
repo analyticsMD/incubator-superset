@@ -60,7 +60,7 @@ RUN pip install --upgrade setuptools pip \
 COPY --chown=superset:superset superset superset
 
 ENV PATH=/home/superset/superset/bin:/home/superset/.local/bin:$PATH \
-    PYTHONPATH=/home/superset/superset/:$PYTHONPATH
+    PYTHONPATH=/home/superset/superset:$PYTHONPATH
 
 USER superset
 

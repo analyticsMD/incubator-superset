@@ -16,7 +16,7 @@ services:
       MYSQL_USER: superset
       MYSQL_PASSWORD: superset
   superset:
-    image: qventus/superset:0.31.2
+    image: qventus/superset:0.31.3
     restart: always
     environment:
       MYSQL_DB: superset
@@ -36,9 +36,9 @@ services:
     depends_on:
       - mysql
       - redis
-    volumes:
+    #volumes:
       # this is needed to communicate with the postgres and redis services
-      - ./superset_config.py:/home/superset/superset/superset_config.py
+      # - ./superset_config.py:/home/superset/superset/superset_config.py
 volumes:
   redis:
     external: false
