@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 import os
+import boto3
 from celery.schedules import crontab
 
 
@@ -30,6 +31,17 @@ def get_env_variable(var_name, default=None):
                         .format(var_name)
             raise EnvironmentError(error_msg)
 
+def getSecretKey():
+    ssm = boto3.client('ssm')
+    key = ssm.get_parameter(Name='/devops/superset/secret_key', WithDecryption=True)
+    secret_key = key['Parameter']['Value']
+    return secret_key
+
+def getMapBoxKey():
+    ssm = boto3.client('ssm')
+    key = ssm.get_parameter(Name='/devops/superset/map_key', WithDecryption=True)
+    map_key = key['Parameter']['Value']
+    return map_key
 
 MYSQL_USER = get_env_variable('MYSQL_USER')
 MYSQL_PASSWORD = get_env_variable('MYSQL_PASSWORD')
@@ -79,18 +91,18 @@ class CeleryConfig(object):
 
 CELERY_CONFIG = CeleryConfig
 
-CACHE_CONFIG = {
-    'CACHE_TYPE': 'redis',
-    'CACHE_DEFAULT_TIMEOUT': 60 * 60 * 24, # 1 day default (in secs)
-    'CACHE_KEY_PREFIX': 'superset_results',
-    'CACHE_REDIS_URL': 'redis://%s:%s/0' % (REDIS_HOST, REDIS_PORT),
-}
+#CACHE_CONFIG = {
+#    'CACHE_TYPE': 'redis',
+#    'CACHE_DEFAULT_TIMEOUT': 60 * 60 * 24, # 1 day default (in secs)
+#    'CACHE_KEY_PREFIX': 'superset_results',
+#    'CACHE_REDIS_URL': 'redis://%s:%s/0' % (REDIS_HOST, REDIS_PORT),
+#}
 
 from werkzeug.contrib.cache import RedisCache
 RESULTS_BACKEND = RedisCache(
     host=REDIS_HOST, port=REDIS_PORT, key_prefix='superset_results')
 
-WEBDRIVER_BASEURL = 'http://0.0.0.0:8088/'
+WEBDRIVER_BASEURL = 'https://0.0.0.0:8088/'
 # Enable / disable scheduled email reports
 ENABLE_SCHEDULED_EMAIL_REPORTS = True
 
@@ -134,3 +146,38 @@ SMTP_USER = 'analyticsmd'
 SMTP_PORT = 465 #465 , 587
 SMTP_PASSWORD = 'D0ndeMail'
 SMTP_MAIL_FROM = 'superset@superset.com'
+SECRET_KEY = getSecretKey()
+ROW_LIMIT = 100
+SQL_MAX_ROW = 500
+VIZ_ROW_LIMIT = 500
+# max rows retrieved by filter select auto complete
+FILTER_SELECT_ROW_LIMIT = 1000
+# Maximum number of rows returned from a database
+# in async mode, no more than SQL_MAX_ROW will be returned and stored
+# in the results backend. This also becomes the limit when exporting CSVs
+SQL_MAX_ROW = 10000
+
+# Default row limit for SQL Lab queries
+DEFAULT_SQLLAB_LIMIT = 100
+
+DISPLAY_MAX_ROW = 500
+SUPERSET_WORKERS = 4
+
+# Timeout duration for SQL Lab synchronous queries
+SQLLAB_TIMEOUT = 600
+
+# The MAX duration (in seconds) a query can run for before being killed
+# by celery.
+SQLLAB_ASYNC_TIME_LIMIT_SEC = 60 * 60
+
+SUPERSET_WEBSERVER_TIMEOUT = 1200
+
+SUPERSET_WEBSERVER_PORT = 8088
+# Flask-WTF flag for CSRF
+WTF_CSRF_ENABLED = True
+# Add endpoints that need to be exempt from CSRF protection
+WTF_CSRF_EXEMPT_LIST = []
+# A CSRF token that expires in 1 year
+WTF_CSRF_TIME_LIMIT = 60 * 60 * 24 * 365
+# Set this API key to enable Mapbox visualizations
+MAPBOX_API_KEY = getMapBoxKey()
