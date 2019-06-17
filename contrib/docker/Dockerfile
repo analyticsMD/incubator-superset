@@ -70,6 +70,10 @@ RUN cd superset/assets \
     && rm -rf node_modules \
     && yarn cache clean
 
+# Initialize slice user version table when creating Mysql first time
+# COPY contrib/docker/dbInitialize.sh .
+# RUN ./dbInitialize.sh
+ 
 RUN mkdir /home/superset/gecko \
     && mkdir -p /home/superset/.local/bin \
     && curl -s -L https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz | tar -xz -C /home/superset/gecko
