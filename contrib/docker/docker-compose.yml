@@ -13,18 +13,18 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: superset
-      MYSQL_ROOT_PASSWORD: superset
+      MYSQL_ROOT_PASSWORD:
       MYSQL_USER: superset
-      MYSQL_PASSWORD: superset
+      MYSQL_PASSWORD:
   superset:
-    image: qventus/superset:0.31.2
+    image: qventus/superset:0.31.4
     restart: always
     environment:
       MYSQL_DB: superset
       MYSQL_USER: superset
       MYSQL_ROOT_PASSWORD: superset
-      MYSQL_PASSWORD: superset
-      MYSQL_HOST: mysql
+      MYSQL_PASSWORD:
+      MYSQL_HOST:
       MYSQL_PORT: 3306
       REDIS_HOST: redis
       REDIS_PORT: 6379
@@ -38,11 +38,11 @@ services:
     depends_on:
       - mysql
       - redis
-    volumes:
+    #volumes:
       # this is needed to communicate with the postgres and redis services
-      - ./superset_config.py:/home/superset/superset/superset_config.py
+      #- ./superset_config.py:/home/superset/superset/superset_config.py
       # this is needed for development, remove with SUPERSET_ENV=production
-      - ../../superset:/home/superset/superset
+      #- ../../superset:/home/superset/superset
 volumes:
   redis:
     external: false
